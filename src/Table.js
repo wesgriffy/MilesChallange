@@ -22,11 +22,8 @@ class Table extends React.Component {
     
     }
     onDragStart = (event, taskName, id) => {
-    	console.log('dragstart on div: ', taskName);
     	event.dataTransfer.setData("taskName", taskName);
-        console.log("stateid:", this.state.id)
         if(id){
-            console.log("to be removed:", id)
             this.setState({drop: true,
                             id: id
             })
@@ -41,7 +38,7 @@ class Table extends React.Component {
 	}
 
 	onDrop = async (event, cat, index) => {
-        if(index == 0){
+        if(index === 0){
             return
         }
 	    let taskName = event.dataTransfer.getData("taskName");
@@ -53,7 +50,7 @@ class Table extends React.Component {
         }
         let categories = Object.assign(this.state.categories,{})
 	    let tasks = this.state.tasks.filter((task) => {
-	        if (task.id == taskName) {
+	        if (task.id === taskName) {
 	            task.type = cat;
                 if(!categories[index - 1].rewards.includes(taskName)){
                     categories[index - 1].rewards.push(taskName)
@@ -71,7 +68,6 @@ class Table extends React.Component {
 
     async remove() {
         let categories = Object.assign(this.state.categories,{})
-        console.log(categories, this.state.id)
         const index = categories[this.state.id.charAt(0)-1].rewards.indexOf(this.state.id.charAt(1))
         categories[this.state.id.charAt(0)-1].rewards.splice(index, 1)
         await this.setState({categories: categories,
@@ -79,7 +75,6 @@ class Table extends React.Component {
                     id: ""
         },() => {
         })
-        console.log("removed:", this.state.id)
     }
 
     async remover(id){
@@ -104,7 +99,7 @@ class Table extends React.Component {
 		  tasks.Reward.push(
 		    rewards
 		  );
-          if(task.type == "Done"){
+          if(task.type === "Done"){
               tasks.Done.push(rewards)
           }
 		});
@@ -112,7 +107,7 @@ class Table extends React.Component {
 	    return (
 	      <div className="drag-container">
 		    <div className="inProgress"
-                droppable
+                droppable="true"
 	    		onDragOver={(event)=>this.onDragOver(event)}
       			onDrop={(event)=>{this.onDrop(event, "Reward", 0)}}>
 	          <span className="group-header">Rewards</span>
@@ -128,7 +123,7 @@ class Table extends React.Component {
 	            <span className="group-header">C{index+1}</span>
                     {tasks.Done.map ((value,indicies) =>{
                         for(let i=0; i<this.state.categories[index].rewards.length; i++){
-                            if(this.state.categories[index].rewards[i] == value.key){
+                            if(this.state.categories[index].rewards[i] === value.key){
                                 let val = Object.create(value)
                                 val.id = index+1 + "" + value.key
                                 return((<div key={index+1 + "" + value.key}
