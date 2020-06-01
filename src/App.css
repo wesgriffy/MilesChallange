@@ -1,10 +1,34 @@
 .App {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.drag-container {
   text-align: center;
+  position: static;
+  min-width: 200vh;
+  min-height: 100vh;
+  overflow:hidden;
+  border: 1px solid black;
+}
+
+.head {
+  margin: 0;
+  padding: 0;
+  background-color: #78d0e2;
+  border-right: 1px solid blue;
+  width:88.2%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+@media screen and (max-width: 800px) {
+  .droppable {
+    width: 15%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -26,6 +50,48 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.droppable {
+  height:100vh;
+  vertical-align: top;
+  display: inline-block;
+  overflow: hidden;
+  position: static;
+  width:222px;
+  top:0;
+  text-align: center;
+  flex-direction: column;
+  background-color: #78d0e2;
+  border: 1px solid blue;
+}
+
+.draggable {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  background-color: rgb(255, 72, 0);
+  margin: 10px auto;
+}
+
+.inProgress {
+  align-items: left;
+  position: absolute;
+  width: 180px;
+  height: 102.7vh;
+  left: 0;
+  top: 10;
+  background-color: #0d639b;
+  border-right: 1px dotted black;
+}
+
+.remove {
+    float:right;
+    background-color: rgb(255, 72, 0);
+}
+
+.styles {
+    background-color: rgb(255, 72, 0);
 }
 
 @keyframes App-logo-spin {
